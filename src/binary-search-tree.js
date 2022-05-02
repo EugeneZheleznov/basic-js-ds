@@ -1,6 +1,6 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require('../extensions/index.js')
 
-const { Node } = require('../extensions/list-tree.js');
+const { Node } = require('../extensions/list-tree.js')
 
 /**
 * Implement simple binary search tree according to task description
@@ -8,112 +8,112 @@ const { Node } = require('../extensions/list-tree.js');
 */
 class BinarySearchTree {
   constructor() {
-    this.rootNode = null;
+    this.rootNode = null
   }
 
   root() {
-    return this.rootNode;
+    return this.rootNode
   }
 
   add(data) {
-    this.rootNode = addWithIn(this.rootNode, data);
+    this.rootNode = addWithIn(this.rootNode, data)
 
     function addWithIn(node, data) {
-      if (!node) return new Node(data);
-      if (node.data === data) return node;
+      if (!node) return new Node(data)
+      if (node.data === data) return node
 
-      if (data < node.data) node.left = addWithIn(node.left, data);
-      else node.right = addWithIn(node.right, data);
+      if (data < node.data) node.left = addWithIn(node.left, data)
+      else node.right = addWithIn(node.right, data)
 
-      return node;
+      return node
     }
   }
 
   has(data) {
-    return searchWithIn(this.rootNode, data);
+    return searchWithIn(this.rootNode, data)
 
     function searchWithIn(node, data) {
-      if (!node) return false;
-      if (node.data === data) return true;
+      if (!node) return false
+      if (node.data === data) return true
 
       return node.data <= data
         ? searchWithIn(node.right, data)
-        : searchWithIn(node.left, data);
+        : searchWithIn(node.left, data)
     }
   }
 
   find(data) {
-    return findWithIn(this.rootNode, data);
+    return findWithIn(this.rootNode, data)
 
     function findWithIn(node, data) {
-      if (!node) return null;
-      if (node.data === data) return node;
+      if (!node) return null
+      if (node.data === data) return node
 
       return node.data <= data
         ? findWithIn(node.right, data)
-        : findWithIn(node.left, data);
+        : findWithIn(node.left, data)
     }
   }
 
   remove(data) {
-    this.rootNode = removeNode(this.rootNode, data);
+    this.rootNode = removeNode(this.rootNode, data)
 
     function removeNode(node, data) {
-      if (!node) return null;
+      if (!node) return null
       if (data < node.data) {
-        node.left = removeNode(node.left, data);
-        return node;
+        node.left = removeNode(node.left, data)
+        return node
       }
       if (data > node.data) {
-        node.right = removeNode(node.right, data);
-        return node;
+        node.right = removeNode(node.right, data)
+        return node
       } else {
         if (!node.left && !node.right) {
-          return null;
+          return null
         }
         if (!node.left) {
-          node = node.right;
-          return node;
+          node = node.right
+          return node
         }
         if (!node.right) {
-          node = node.left;
-          return node;
+          node = node.left
+          return node
         }
 
-        let minFromRight = node.right;
+        let minFromRight = node.right
         while (minFromRight.left) {
-          minFromRight = minFromRight.left;
+          minFromRight = minFromRight.left
         }
-        node.data = minFromRight.data;
+        node.data = minFromRight.data
 
-        node.right = removeNode(node.right, minFromRight.data);
+        node.right = removeNode(node.right, minFromRight.data)
 
-        return node;
+        return node
       }
     }
   }
 
   min() {
-    if (!this.rootNode) return;
+    if (!this.rootNode) return
 
-    let node = this.rootNode;
+    let node = this.rootNode
     while (node.left) {
-      node = node.left;
+      node = node.left
     }
-    return node.data;
+    return node.data
   }
 
   max() {
-    if (!this.rootNode) return;
+    if (!this.rootNode) return
 
-    let node = this.rootNode;
+    let node = this.rootNode
     while (node.right) {
-      node = node.right;
+      node = node.right
     }
-    return node.data;
+    return node.data
   }
 }
 
 module.exports = {
   BinarySearchTree
-};
+}
